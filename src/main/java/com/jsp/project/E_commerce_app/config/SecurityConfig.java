@@ -28,16 +28,15 @@ public class SecurityConfig {
 	PasswordEncoder encoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
-	@Bean
-    AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();
-    }
 
 	@Bean
-	SecurityFilterChain chain(HttpSecurity httpSecurity) throws Exception {
-		return httpSecurity.httpBasic(Customizer.withDefaults())
-				.csrf(x->x.disable())
+	AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+		return config.getAuthenticationManager();
+	}
+
+	@Bean
+	SecurityFilterChain chain(HttpSecurity http) throws Exception {
+		return http.csrf(x -> x.disable())
 				.authorizeHttpRequests(x -> x.requestMatchers("/auth/**").permitAll().anyRequest().authenticated())
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
 				.sessionManagement(x -> x.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).build();
