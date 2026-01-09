@@ -4,9 +4,8 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-
 @Data
-public class MerchantDto {
+public class CustomerDto {
 	@NotEmpty(message = "Name is Required")
 	private String name;
 	@NotEmpty(message = "Email is Required")
@@ -17,6 +16,4 @@ public class MerchantDto {
 	private Long mobile;
 	@NotEmpty(message = "Address is Required")
 	private String address;
-	@NotEmpty(message = "gstNo is Required")
-	private String gstNo;
 }

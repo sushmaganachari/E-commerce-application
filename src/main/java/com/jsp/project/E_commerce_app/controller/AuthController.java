@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jsp.project.E_commerce_app.dto.CustomerDto;
 import com.jsp.project.E_commerce_app.dto.LoginDto;
 import com.jsp.project.E_commerce_app.dto.MerchantDto;
 import com.jsp.project.E_commerce_app.dto.OtpDto;
@@ -57,13 +58,33 @@ public class AuthController {
 	@PatchMapping("/merchant/otp")
 	@ResponseStatus(HttpStatus.OK)
 	public Map<String, Object> verifyOtp(@Valid @RequestBody OtpDto dto) {
-		return authService.verifyOtp(dto);
+		return authService.verifyMerchantOtp(dto);
 	}
 
 	@PatchMapping("/merchant/resend/{email}")
 	@ResponseStatus(HttpStatus.OK)
 	public Map<String, Object> resendOtp(@PathVariable String email) {
-		return authService.resendOtp(email);
+		return authService.resendMerchantOtp(email);
+	}
+	
+	@PostMapping("/customer/register")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Map<String, Object> registerCustomerAccount(@Valid @RequestBody CustomerDto customerDto) {
+		return authService.registerCustomer(customerDto);
+	}
+	
+	
+	@PatchMapping("/customer/otp")
+	@ResponseStatus(HttpStatus.OK)
+	public Map<String, Object> verifyCustomerOtp(@Valid
+			@RequestBody OtpDto dto){
+		return authService.verifyCustomerOtp(dto);
+	}
+	
+	@PatchMapping("/customer/resend/{email}")
+	@ResponseStatus(HttpStatus.OK)
+	public Map<String, Object> resendCustomerOtp(@PathVariable String email){
+		return authService.resendCustomerOtp(email);
 	}
 
 }
