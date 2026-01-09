@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
 	public Map<String, Object> handle(IllegalArgumentException exception) {
 		return Map.of("error", exception.getMessage());
 	}
-
+	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public Map<String, Object> handle(MethodArgumentNotValidException exception) {
@@ -32,6 +32,7 @@ public class GlobalExceptionHandler {
 		exception.getBindingResult().getFieldErrors().forEach(x -> errors.put(x.getField(), x.getDefaultMessage()));
 		return Map.of("error", errors);
 	}
+
 
 
 }

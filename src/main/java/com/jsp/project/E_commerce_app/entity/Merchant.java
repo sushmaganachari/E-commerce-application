@@ -1,38 +1,30 @@
 package com.jsp.project.E_commerce_app.entity;
 
-
-import com.jsp.project.E_commerce_app.enums.UserRole;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-@Entity
 @Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Merchant {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	@Column(nullable = false)
-	private String username;
-	@Column(nullable = false, unique = true)
-	private String email;
-	@Column(nullable = false, unique = true)
-	private Long mobile;
+	private String name;
 	@Column(nullable = false)
-	private String password;
-	@Enumerated(EnumType.STRING)
+	private String address;
 	@Column(nullable = false)
-	private UserRole role;
-	private boolean isActive;
+	private String gstNo;
+
+	@OneToOne
+	private User user;
 }
